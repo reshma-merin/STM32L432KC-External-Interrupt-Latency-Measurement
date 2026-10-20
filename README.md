@@ -23,8 +23,9 @@ This repo covers:
 | Output | LED on **D12 (PB4)** through a ~330 Ω resistor to GND |
 | Instrument | Oscilloscope, Channel 1 on the button and Channel 2 on the LED |
 
-Wiring follows Figure of the lab handout. Pressing the button connects 3V3 to PB3, so a press produces a rising edge on the pin.
+Wiring follows the figure below. Pressing the button connects 3V3 to PB3, so a press produces a rising edge on the pin.
 
+![Wiring diagram](assets/diagram.png)
 ## Configuration (STM32CubeIDE / CubeMX)
 
 | Setting | Value |
@@ -67,10 +68,9 @@ Cursors on the oscilloscope capture give two intervals:
 | C0 (button edge to LED edge) | _fill in from your scope capture_ |
 | C1 | _fill in from your scope capture_ |
 
-Add your oscilloscope screenshot to the repo and link it here:
-
-`![Interrupt latency capture](docs/scope_capture.png)`
-
+Waveforms were captured with a Digilent Discovery 3 and WaveForms, sampling at 100 MHz. Channel 1 (yellow) is the button signal on PB3 and Channel 2 (blue) is the LED on PB4. X cursors mark the edges.
+ 
+![Interrupt latency capture](assets/waveform.png)
 ## Observations: Contact Bounce
 
 A mechanical button does not make a single clean transition. The contacts bounce for a short time, so one press can produce several edges, and each edge can fire the interrupt. The LED may then toggle more than once per press and end up in the wrong state.
@@ -85,7 +85,7 @@ Ways to avoid it:
 - `Core/Src/main.c`: application setup and main loop
 - `Core/Src/stm32l4xx_it.c`: EXTI3 interrupt handler
 - `*.ioc`: STM32CubeMX configuration
-- `docs/`: oscilloscope capture and circuit photos
+- `assests/`: oscilloscope capture and circuit photos
 
 ## Build and Run
 
@@ -95,6 +95,3 @@ Ways to avoid it:
 4. Flash it with **Run > Debug**, then press **Resume (F8)**, since the debugger halts at the start of `main()` by default.
 5. Press the button and watch the LED on the board and on the scope.
 
-## Author
-
-Reshma Merin Thomas, CPE 187 Embedded Systems Design
